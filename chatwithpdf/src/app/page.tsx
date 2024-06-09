@@ -5,6 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { LogIn } from "lucide-react";
 import Link from "next/link";
 import Image from 'next/image';
+import FileUpload from "@/components/FileUpload";
 
 
 export default async function Home() {
@@ -36,7 +37,7 @@ export default async function Home() {
 
               <div className="w-full mt-4">
                 {
-                  isAuth ? (<h1>fileupload</h1>) :
+                  isAuth ? (<FileUpload />) :
                   <Link href="/sign-in">
                   <Button>
                     Login to get started!
