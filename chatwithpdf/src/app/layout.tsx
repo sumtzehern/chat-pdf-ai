@@ -9,6 +9,8 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import Providers from "@/components/Providers";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,17 +26,30 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <body className={inter.className}>{children}</body>
-        </ThemeProvider>
-      </html>
-      
+      <Providers>
+        <html lang="en" suppressHydrationWarning>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <body className={inter.className}>{children}</body>
+          </ThemeProvider>
+          <Toaster
+            toastOptions={{
+              style: {
+                marginLeft: "auto",
+                marginRight: "auto",
+                transform: "translateX(-50%)",
+                top: "30px",
+                position: "fixed",
+                right: "50%",
+              },
+            }}
+          />
+        </html>
+      </Providers>
     </ClerkProvider>
   );
 }
