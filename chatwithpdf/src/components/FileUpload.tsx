@@ -75,9 +75,10 @@ const FileUpload = () => {
       >
         <input {...getInputProps()} />
         {uploading || isLoading ? (
-          <>{/* loading state */}
-          <Loader2 className="w-10 h-10 text-blue-500 dark:text-slate-400 animate-spin" />
-          <p className="text-sm mt-2 text-slate-400">Uploading PDF...</p>
+          <>
+            {/* loading state */}
+            <Loader2 className="w-10 h-10 text-blue-500 dark:text-slate-400 animate-spin" />
+            <p className="text-sm mt-2 text-slate-400">Uploading PDF...</p>
           </>
         ) : (
           <>
