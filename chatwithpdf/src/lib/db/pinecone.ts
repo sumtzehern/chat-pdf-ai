@@ -5,16 +5,15 @@ import { Document, RecursiveCharacterTextSplitter } from "@pinecone-database/doc
 
 let pinecone : Pinecone | null = null;
 
-export const getPinecone = async () => {
-    if (!pinecone) {
-        pinecone = new Pinecone({ apiKey: process.env.PINECONE_API_KEY! });
-    }
-    return pinecone;
+export const getPinecone =  () => {
+    return new Pinecone({
+        apiKey: process.env.PINECONE_API_KEY!,
+    });
 }
 
 type PDFPage = {
     pageContent: string
-    metaData: {
+    metadata: {
         loc: {
             pageNumber: number
         }
@@ -33,17 +32,53 @@ export const loadS3IntoPinecone = async (file_key: string) => {
     const file_name = await donwloadFromS3(file_key);
 
     if (!file_name) {
-        console.log("File name is null")
-        return;
+        throw new Error("Failed to download file from S3");
     }
 
     const loader = new PDFLoader(file_name);
     const pages = (await loader.load()) as unknown as PDFPage[];
 
-    //2. splite and segment the pdf
-    return pages
-}
+    //2. Split and segment the pdf into small chunks
+    // eg: split pages of array into smaller chunks
+    const documenet = await Promise.all(pages.map(prepareDocument))
 
-async function prepareDocument(page: PDFPage) {
+    //3. vector and embed individual docs
+    
     
 }
+
+
+/**
+ * Truncates a string to a specified number of bytes.
+ *
+ * @param {string} str - The string to be truncated.
+ * @param {number} maxBytes - The maximum number of bytes the string can have.
+ * @return {string} The truncated string.
+ */
+export const truncateStringByBytes = (str: string, maxBytes: number) => {
+    const encoder = new TextEncoder();
+    return new TextDecoder().decode(encoder.encode(str).slice(0, maxBytes))
+}
+
+/**
+ * Prepares a document for indexing by splitting the content into smaller documents based on character count.
+ *
+ * @param {PDFPage} page - The PDF page containing the content to be prepared.
+ * @return {Promise<Document[]>} A promise that resolves to an array of prepared Document objects.
+ */
+async function prepareDocument(page: PDFPage) {
+    let { pageContent, metadata } = page;
+    pageContent = pageContent.replace(/\n/g, "");
+    // split the docs
+    const splitter = new RecursiveCharacterTextSplitter();
+    const docs = await splitter.splitDocuments([
+      new Document({
+        pageContent,
+        metadata: {
+          pageNumber: metadata.loc.pageNumber,
+          text: truncateStringByBytes(pageContent, 36000),
+        },
+      }),
+    ]);
+    return docs;
+  }

@@ -1,7 +1,14 @@
 import { S3 } from "@aws-sdk/client-s3";
 import fs from "fs";
 
+/**
+ * Downloads a file from AWS S3 using the provided file key.
+ *
+ * @param {string} file_key - The key of the file in S3.
+ * @return {Promise<string | null>} The path of the downloaded file, or null if an error occurred.
+ */
 export async function donwloadFromS3(file_key: string) {
+
   try {
     const s3 = new S3({
       region: process.env.NEXT_PUBLIC_AWS_REGION,
@@ -15,7 +22,7 @@ export async function donwloadFromS3(file_key: string) {
       Key: file_key,
     };
     const obj = await s3.getObject(params);
-    const file_name = `./downloaded-file-${Date.now()}.pdf`;
+    const file_name = `./downloaded-pdf-${Date.now()}.pdf`;
     if (obj.Body instanceof require("stream").Readable) {
       // AWS-SDK v3 has some issues with their typescript definitions, but this works
       // https://github.com/aws/aws-sdk-js-v3/issues/843
@@ -24,6 +31,7 @@ export async function donwloadFromS3(file_key: string) {
     }
 
     return file_name;
+
   } catch (error) {
     console.log(error);
     return null;
