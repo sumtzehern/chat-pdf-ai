@@ -7,7 +7,7 @@ import fs from "fs";
  * @param {string} file_key - The key of the file in S3.
  * @return {Promise<string | null>} The path of the downloaded file, or null if an error occurred.
  */
-export async function donwloadFromS3(file_key: string) {
+export async function downloadFromS3(file_key: string) {
 
   try {
     const s3 = new S3({
