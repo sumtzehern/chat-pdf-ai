@@ -1,12 +1,12 @@
 import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
 import { downloadFromS3 } from "./s3-server";
-import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import md5 from "md5";
 import {
   Document,
   RecursiveCharacterTextSplitter,
 } from "@pinecone-database/doc-splitter";
-import { getEmbedding } from "../embeddings";
+import { getEmbeddings } from "../embeddings";
 import { convertToAscii } from "../utils";
 
 export const getPineconeClient = () => {
@@ -52,7 +52,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
 async function embedDocument(doc: Document) {
   try {
-    const embeddings = await getEmbedding(doc.pageContent);
+    const embeddings = await getEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
 
     return {

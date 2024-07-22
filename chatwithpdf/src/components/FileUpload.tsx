@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const FileUpload = () => {
+  
   const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
   const { mutate, isLoading } = useMutation({
@@ -25,6 +26,14 @@ const FileUpload = () => {
         file_name,
       });
       return response.data;
+    },
+    onSuccess: ({ chat_id }) => {
+      toast.success("Chat created!");
+      router.push(`/chat/${chat_id}`);
+    },
+    onError: (error) => {
+      toast.error("Error creating chat");
+      console.error("Error creating chat:", error);
     },
   });
 
@@ -48,17 +57,9 @@ const FileUpload = () => {
           toast.error("Something went wrong");
           return;
         }
-        mutate(data, {
-          onSuccess: ({ chat_id }) => {
-            toast.success("Chat created!");
-            router.push(`/chat/${chat_id}`);
-          },
-          onError: (err) => {
-            toast.error("Error creating chat");
-            console.error(err);
-          },
-        });
+        mutate(data );
       } catch (error) {
+        toast.error("Error uploading file");
         console.log(error);
       } finally {
         setUploading(false);
