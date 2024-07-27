@@ -16,8 +16,12 @@ export default async function Home() {
     <main>
       <div className=" p-4 flex h-14 items-center justify-between supports-backdrop-blur:bg-background/60 sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
       <span className="font-bold">FileChatAI</span>
-      <UserButton afterSignOutUrl="/"/>
-      <ModeToggle />
+      <div className="flex items-center">
+          <div className="mr-4 h-8">
+            <UserButton afterSignOutUrl="/"/>
+          </div>
+          <ModeToggle />
+        </div>
       </div>
       <div className="w-screen min-h-screen bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-300 via-green-400 to-rose-700">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -57,3 +61,7 @@ export default async function Home() {
     </main>
   );
 }
+function styled(UserButton: unknown) {
+  throw new Error("Function not implemented.");
+}
+
