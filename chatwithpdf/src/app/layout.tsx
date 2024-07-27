@@ -24,7 +24,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <ClerkProvider>
       <Providers>
@@ -35,22 +34,22 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <body className={inter.className}>
-              {children}
-              <Toaster
-                toastOptions={{
-                  style: {
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    transform: "translateX(-50%)",
-                    top: "30px",
-                    position: "fixed",
-                    right: "50%",
-                  },
-                }}
-              />
-            </body>
+          <body className={inter.className}>{children}</body>
           </ThemeProvider>
+          <div style={{
+            position: 'fixed',
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 1000
+          }}>
+            <Toaster toastOptions={{
+                style: {
+                  minWidth: '200px',
+                  whiteSpace: 'nowrap',
+                },
+              }} />
+          </div>
         </html>
       </Providers>
     </ClerkProvider>
