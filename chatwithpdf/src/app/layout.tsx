@@ -34,22 +34,28 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-          <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+              {children}
+              <div
+                style={{
+                  position: "fixed",
+                  top: "20px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  zIndex: 1000,
+                }}
+              >
+                <Toaster
+                  toastOptions={{
+                    style: {
+                      minWidth: "200px",
+                      whiteSpace: "nowrap",
+                    },
+                  }}
+                />
+              </div>
+            </body>
           </ThemeProvider>
-          <div style={{
-            position: 'fixed',
-            top: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 1000
-          }}>
-            <Toaster toastOptions={{
-                style: {
-                  minWidth: '200px',
-                  whiteSpace: 'nowrap',
-                },
-              }} />
-          </div>
         </html>
       </Providers>
     </ClerkProvider>

@@ -1,0 +1,45 @@
+"use client";
+
+import { chats, DrizzleChat } from "@/lib/db/schema";
+import Link from "next/link";
+import React from "react";
+import { Button } from "./ui/button";
+import { PlusCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type Props = {
+  chats: DrizzleChat[];
+  chatId: number;
+};
+
+const ChatSideBar = ({chats, chatId}: Props) => {
+  return (
+    <div className="w-full h-screen p-2 text-gray-500 bg-gray-900">
+      <Link href={"/"}>
+        <Button className="w-full border-dashed border-white border">
+          <PlusCircle className="mr-2 w-4 h-4" />
+          New Chat
+        </Button>
+      </Link>
+
+      <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4">
+        {chats.map((chat) => (
+          <Link key={chat.id} href={`/chat/${chat.id}`}>
+            <div
+              className={cn("rounded-lg p-3 text-slate-300 flex items-center", {
+                "bg-blue-700 text-white": chat.id === chatId,
+                "hover:text-white": chat.id !== chatId,
+              })}
+            >
+              <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
+                {chat.pdfName}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ChatSideBar;

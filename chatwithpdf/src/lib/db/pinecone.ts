@@ -29,11 +29,11 @@ export async function loadS3IntoPinecone(fileKey: string) {
   if (!file_name) {
     throw new Error("could not download from s3");
   }
-  console.log("loading pdf into memory" + file_name);
+  console.log("loading pdf into memory " + file_name);
   const loader = new PDFLoader(file_name);
   const pages = (await loader.load()) as PDFPage[];
 
-  // 2. split and segment the pdf
+  // 2. split and segment pdf
   const documents = await Promise.all(pages.map(prepareDocument));
 
   // 3. vectorise and embed individual documents
@@ -41,7 +41,7 @@ export async function loadS3IntoPinecone(fileKey: string) {
 
   // 4. upload to pinecone
   const client = await getPineconeClient();
-  const pineconeIndex = await client.index("pdf-chat-ai");
+  const pineconeIndex = await client.index(process.env.PINECONE_INDEX_NAME!);
   const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
 
   console.log("inserting vectors into pinecone");
@@ -74,9 +74,15 @@ export const truncateStringByBytes = (str: string, bytes: number) => {
   return new TextDecoder("utf-8").decode(enc.encode(str).slice(0, bytes));
 };
 
+/**
+ * Prepares a document by removing newlines from the page content and splitting it into smaller documents.
+ *
+ * @param {PDFPage} page - The PDF page to prepare.
+ * @return {Promise<Document[]>} An array of smaller documents.
+ */
 async function prepareDocument(page: PDFPage) {
   let { pageContent, metadata } = page;
-  pageContent = pageContent.replace(/\n/g, "");
+  pageContent = pageContent.replace(/\n/g, ""); // replace newlines with spaces
   // split the docs
   const splitter = new RecursiveCharacterTextSplitter();
   const docs = await splitter.splitDocuments([

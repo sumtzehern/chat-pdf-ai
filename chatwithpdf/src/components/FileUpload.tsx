@@ -27,14 +27,6 @@ const FileUpload = () => {
       });
       return response.data;
     },
-    onSuccess: ({ chat_id }) => {
-      toast.success("Chat created!");
-      router.push(`/chat/${chat_id}`);
-    },
-    onError: (error) => {
-      toast.error("Error creating chat");
-      console.error("Error creating chat:", error);
-    },
   });
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -57,7 +49,17 @@ const FileUpload = () => {
           toast.error("Something went wrong");
           return;
         }
-        mutate(data );
+    
+        mutate(data, {
+          onSuccess: ({ chat_id }) => {
+            toast.success("Chat created!");
+            router.push(`/chat/${chat_id}`);
+          },
+          onError: (error) => {
+            toast.error("Error creating chat");
+            console.error("Error creating chat:", error);
+          }
+        }) ;
       } catch (error) {
         toast.error("Error uploading file");
         console.log(error);
@@ -79,7 +81,7 @@ const FileUpload = () => {
         {uploading || isLoading ? (
           <>
             {/* loading state */}
-            <Loader2 className="w-10 h-10 text-blue-500 dark:text-slate-400 animate-spin" />
+            <Loader2 className="w-10 h-10 text-blue-500 dark:text-slate-600 animate-spin" />
             <p className="text-sm mt-2 text-slate-400">Uploading PDF...</p>
           </>
         ) : (
