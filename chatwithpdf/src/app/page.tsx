@@ -23,19 +23,21 @@ export default async function Home() {
           <ModeToggle />
         </div>
       </div>
-      <div className="w-screen min-h-screen bg-[conic-gradient(at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-300 via-green-400 to-rose-700">
+      <div className="w-screen min-h-screen bg-gradient-to-b from-blue-400 to-emerald-400">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center text-center">
             <div className="flex items-center">
-              <h1 className="mr-3 text-4xl font-semibold">Chat with any PDFs</h1>
+              <h1 className="mr-3 text-4xl font-semibold dark:text-slate-800">Chat with any PDFs</h1>
             </div>
             <div className="flex mt-2">
               {
-                isAuth && <Button className="text-sm font-medium">Chat with PDF</Button>
+                isAuth && <Button className="text-sm font-medium dark:bg-slate-800 dark:text-slate-300">
+                  <Link href="/chat/1">Go to Chats 👉🏼</Link>
+                  </Button>
               }
               </div>
 
-              <p className="max-w-xl mt-1 text-lg text-slate-600">
+              <p className="max-w-xl mt-1 text-lg text-slate-800">
                 Powered by OpenAI, instantly answer questions and understand research with AI
               </p>
 
