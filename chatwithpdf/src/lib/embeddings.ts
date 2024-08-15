@@ -6,6 +6,12 @@ const config = new Configuration({
 
 const openai = new OpenAIApi(config);
 
+/**
+ * Retrieves a vector of dimensions representing the embeddings of a given text using the OpenAI API.
+ *
+ * @param {string} text - The input text to generate embeddings for.
+ * @return {number[]} A vector of dimensions representing the embeddings of the input text.
+ */
 export async function getEmbeddings(text: string) {
   try {
     const response = await openai.createEmbedding({

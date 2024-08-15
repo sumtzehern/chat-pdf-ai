@@ -6,11 +6,23 @@ import { LogIn } from "lucide-react";
 import Link from "next/link";
 import Image from 'next/image';
 import FileUpload from "@/components/FileUpload";
+import { db } from "@/lib/db";
+import { chats } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 
 export default async function Home() {
   const {userId} = await auth()
   const isAuth = !!userId
+
+  // redirect user to chatdashboard if they already have a chat
+  let firstChat;
+  if (userId) {
+    firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
+    if (firstChat) {
+      firstChat = firstChat[0];
+    }
+  }
 
   return (
     <main>
@@ -32,7 +44,7 @@ export default async function Home() {
             <div className="flex mt-2">
               {
                 isAuth && <Button className="text-sm font-medium dark:bg-slate-800 dark:text-slate-300">
-                  <Link href="/chat/1">Go to Chats 👉🏼</Link>
+                  <Link href={`/chat/${firstChat?.id}`}>Go to Chats 👉🏼</Link>
                   </Button>
               }
               </div>
@@ -54,7 +66,7 @@ export default async function Home() {
               </div>
 
               <div className="mt-6">
-              <Image src="/example.png" alt="chatwithpdf" width={500} height={300} className="rounded-lg"/>
+              <Image priority src="/example.png" alt="chatwithpdf" width={500} height={300} className="rounded-lg"/>
             </div>
 
           </div>

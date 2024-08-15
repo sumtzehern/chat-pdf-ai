@@ -1,18 +1,22 @@
 "use client";
 
-import { chats, DrizzleChat } from "@/lib/db/schema";
+import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 type Props = {
   chats: DrizzleChat[];
   chatId: number;
 };
 
-const ChatSideBar = ({chats, chatId}: Props) => {
+const ChatSideBar = ({ chats, chatId }: Props) => {
+
+
   return (
     <div className="w-full h-screen p-2 text-gray-500 bg-gray-900">
       <Link href={"/"}>
@@ -24,25 +28,29 @@ const ChatSideBar = ({chats, chatId}: Props) => {
 
       <div className="flex max-h-screen pb-20 flex-col gap-2 mt-4">
         {chats.map((chat) => (
-          <Link key={chat.id} href={`/chat/${chat.id}`}>
-            <div
-              className={cn("rounded-lg p-3 text-slate-300 flex items-center", {
-                "bg-blue-700 text-white": chat.id === chatId,
-                "hover:text-white": chat.id !== chatId,
-              })}
-            >
-              <p className="w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
-                {chat.pdfName}
+          <div
+            key={chat.id}
+            className={cn("rounded-lg p-3 text-slate-300 flex items-center justify-between", {
+              "bg-blue-700 text-white": chat.id === chatId,
+              "hover:text-white": chat.id !== chatId,
+            })}
+          >
+            <Link href={`/chat/${chat.id}`} className="w-full">
+              <p className="overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
+              {chat.pdfName.length > 10 ? `${chat.pdfName.substring(0, 20)}...` : chat.pdfName}
               </p>
-            </div>
-          </Link>
+            </Link>
+            <Trash
+              className="w-5 h-5 text-red-700 hover:text-red-900 cursor-pointer"
+            />
+          </div>
         ))}
       </div>
 
       <div className="absolute bottom-4 left-4">
         <div className="flex items-center gap-2 text-sm text-slate-500 flex-wrap">
-            <Link href='/'>Home</Link>
-            <Link href='/'>Source</Link>
+          <Link href="/">Home</Link>
+          <Link href="/">Source</Link>
         </div>
       </div>
     </div>
