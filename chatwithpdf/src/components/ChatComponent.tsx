@@ -28,7 +28,7 @@ const ChatComponent = ({chatId}: Props) => {
         body: {
             chatId
         },
-        initialMessages: [],
+        initialMessages: data || [],
     });
 
     // scroll to bottom when new message is added
