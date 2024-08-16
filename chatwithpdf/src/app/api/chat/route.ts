@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { convertToCoreMessages, streamText, AIStream } from "ai";
+import { convertToCoreMessages, streamText } from "ai";
 import { getContext } from "@/lib/context";
 import { db } from "@/lib/db";
 import { chats, messages as _messages } from "@/lib/db/schema";
@@ -29,24 +29,31 @@ export async function POST(req: Request) {
     END OF CONTEXT BLOCK
     
     User's Question: "${lastMessage.content}"
-    AI Assistant's Answer:`;   
+    AI Assistant's Answer:`;    
 
     // AI response with custom prompt and context
-    const response = await streamText({
+    const result = await streamText({
       model: openai("gpt-4o-mini"),
       system: systemPrompt,
       messages: convertToCoreMessages(messages),
       async onFinish(completion) {
-        // save user message into db
+        // Save user message to the database
         await db.insert(_messages).values([{
           chatId: chatId,
           content: lastMessage.content,
           role: "user",
         }]);
+
+        // Save AI response to the database
+        await db.insert(_messages).values([{
+          chatId: chatId,
+          content: completion.text,
+          role: "system",
+        }]);
       },
     });
 
-    return response.toDataStreamResponse();
+    return result.toAIStreamResponse();
   } catch (error) {
     console.error(error);
     return NextResponse.json(

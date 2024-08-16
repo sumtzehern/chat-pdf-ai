@@ -48,7 +48,7 @@ const ChatComponent = ({chatId}: Props) => {
                 <h3 className="text-xl font-bold">Chat</h3>
             </div>
 
-            <MessageList messages={messages}/>
+            <MessageList messages={messages} isLoading={isLoading}/>
 
             <form className="sticky bottom-0 inset-x-0 px-2 py-4 bg-white" onSubmit={handleSubmit} autoComplete="on">
                 <div className="flex">
