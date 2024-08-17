@@ -8,6 +8,7 @@ import { PlusCircle, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 type Props = {
   chats: DrizzleChat[];
@@ -15,7 +16,19 @@ type Props = {
 };
 
 const ChatSideBar = ({ chats, chatId }: Props) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const handleSubcription = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get("/api/stripe")
+      window.location.href = response.data.url; // Redirect to billing stripe page
 
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="w-full h-screen p-2 text-gray-500 bg-gray-900">
@@ -52,6 +65,7 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
           <Link href="/">Home</Link>
           <Link href="/">Source</Link>
         </div>
+        <Button className="mt-2 text-white bg-purple-700 hover:bg-fuchsia-700" disabled={isLoading} onClick={handleSubcription}>Upgrade to Pro</Button>
       </div>
     </div>
   );
