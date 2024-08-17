@@ -13,6 +13,7 @@ type Props = {
 }
 
 const ChatComponent = ({chatId}: Props) => {
+  
     const { data, isLoading } = useQuery({
         queryKey: ["chat", chatId],
         queryFn: async () => {

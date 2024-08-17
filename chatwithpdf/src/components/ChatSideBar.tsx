@@ -9,14 +9,18 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
+import SubscriptionButton from "./SubcriptionButton";
+import { checkSubscription } from "@/lib/subcription";
 
 type Props = {
   chats: DrizzleChat[];
   chatId: number;
+  isPro: boolean;
 };
 
-const ChatSideBar = ({ chats, chatId }: Props) => {
+const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  
   const handleSubcription = async () => {
     try {
       setIsLoading(true);
@@ -65,7 +69,9 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
           <Link href="/">Home</Link>
           <Link href="/">Source</Link>
         </div>
-        <Button className="mt-2 text-white bg-purple-700 hover:bg-fuchsia-700" disabled={isLoading} onClick={handleSubcription}>Upgrade to Pro</Button>
+        <div className="mt-2 bg-purple-600">
+        <SubscriptionButton isPro={isPro} />
+        </div>
       </div>
     </div>
   );

@@ -9,11 +9,14 @@ import FileUpload from "@/components/FileUpload";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { checkSubscription } from "@/lib/subcription";
+import SubscriptionButton from "@/components/SubcriptionButton";
 
 
 export default async function Home() {
   const {userId} = await auth()
   const isAuth = !!userId
+  const isPro = await checkSubscription();
 
   // redirect user to chatdashboard if they already have a chat
   let firstChat;
@@ -47,6 +50,7 @@ export default async function Home() {
                   <Link href={`/chat/${firstChat?.id}`}>Go to Chats 👉🏼</Link>
                   </Button>
               }
+              <div className="ml-3"><SubscriptionButton isPro={isPro}/></div>
               </div>
 
               <p className="max-w-xl mt-1 text-lg text-slate-800">
