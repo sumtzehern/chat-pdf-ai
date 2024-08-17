@@ -4,13 +4,27 @@ import { DrizzleChat } from "@/lib/db/schema";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { PlusCircle, Trash } from "lucide-react";
+import { PlusCircle, Trash, TrashIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import axios from "axios";
 import SubscriptionButton from "./SubcriptionButton";
 import { checkSubscription } from "@/lib/subcription";
+import router from "next/router";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
+
 
 type Props = {
   chats: DrizzleChat[];
@@ -20,19 +34,38 @@ type Props = {
 
 const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const [successMessage, setSuccessMessage] = React.useState(null);
+  const [selectedChatId, setSelectedChatId] = React.useState(null);
   
-  const handleSubcription = async () => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get("/api/stripe")
-      window.location.href = response.data.url; // Redirect to billing stripe page
 
+  const handleDeleteChat = async (chatId: number) => {
+    setIsLoading(true); // Set loading state to true when delete starts
+    setError(null);   // Clear previous errors
+    setSuccessMessage(null); // Clear previous success messages
+
+    try {
+      const response = await fetch('/api/delete-chat', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ chatId }),
+      });
+
+      if (response.ok) {
+        // Handle success - remove chat from UI or refresh
+        toast.success('Chat deleted successfully');
+        router.reload(); // Reload the page or update state to remove chat from UI
+      } else {
+        console.error('Failed to delete chat');
+      }
     } catch (error) {
-      console.error(error);
+      toast.error('Failed to delete chat');
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Set loading state to false when delete finishes
     }
-  }
+  };
 
   return (
     <div className="w-full h-screen p-2 text-gray-500 bg-gray-900">
@@ -57,9 +90,34 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
               {chat.pdfName.length > 10 ? `${chat.pdfName.substring(0, 20)}...` : chat.pdfName}
               </p>
             </Link>
+            <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant={"destructive"}>
             <Trash
-              className="w-5 h-5 text-red-700 hover:text-red-900 cursor-pointer"
+              className="w-4 h-4 text-white hover:text-red-900 cursor-pointer"
             />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will remove the
+                chat and any data associated with it.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  handleDeleteChat(chat.id);
+                }}
+              >
+                Yes, delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
           </div>
         ))}
       </div>

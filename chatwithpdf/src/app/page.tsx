@@ -35,7 +35,7 @@ export default async function Home() {
           <div className="mr-4 h-8">
             <UserButton afterSignOutUrl="/"/>
           </div>
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-b from-blue-400 to-emerald-400">

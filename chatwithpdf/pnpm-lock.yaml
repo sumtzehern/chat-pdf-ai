@@ -16,7 +16,7 @@ dependencies:
     version: 5.2.12(next@14.2.3)(react-dom@18.3.1)(react@18.3.1)
   '@langchain/community':
     specifier: ^0.2.11
-    version: 0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+    version: 0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
   '@neondatabase/serverless':
     specifier: ^0.9.3
     version: 0.9.4
@@ -26,6 +26,9 @@ dependencies:
   '@pinecone-database/pinecone':
     specifier: ^2.2.2
     version: 2.2.2
+  '@radix-ui/react-alert-dialog':
+    specifier: ^1.1.1
+    version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
   '@radix-ui/react-dropdown-menu':
     specifier: ^2.0.6
     version: 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -41,6 +44,9 @@ dependencies:
   '@types/md5':
     specifier: ^2.3.5
     version: 2.3.5
+  '@vercel/kv':
+    specifier: ^0.2.4
+    version: 0.2.4
   ai:
     specifier: ^3.2.37
     version: 3.3.0(react@18.3.1)(svelte@4.2.18)(vue@3.4.35)(zod@3.23.8)
@@ -61,7 +67,7 @@ dependencies:
     version: 0.31.4(@neondatabase/serverless@0.9.4)(@types/react@18.3.3)(react@18.3.1)
   langchain:
     specifier: ^0.2.5
-    version: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+    version: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
   lucide-react:
     specifier: ^0.390.0
     version: 0.390.0(react@18.3.1)
@@ -92,6 +98,9 @@ dependencies:
   react-hot-toast:
     specifier: ^2.4.1
     version: 2.4.1(csstype@3.1.3)(react-dom@18.3.1)(react@18.3.1)
+  stripe:
+    specifier: ^16.8.0
+    version: 16.8.0
   tailwind-merge:
     specifier: ^2.3.0
     version: 2.4.0
@@ -1531,7 +1540,7 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  /@langchain/community@0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1):
+  /@langchain/community@0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1):
     resolution: {integrity: sha512-p1n/zZ1F+O5l51RzeoUeJyhpzq6Wp11tkqKOj8oThKOQJgLhO7q6iFIvmKThzL7mZCNNuPM5r1OPnU4wO6iF/A==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -1905,11 +1914,12 @@ packages:
       '@langchain/openai': 0.2.5(langchain@0.2.12)
       '@neondatabase/serverless': 0.9.4
       '@pinecone-database/pinecone': 2.2.2
+      '@vercel/kv': 0.2.4
       binary-extensions: 2.3.0
       expr-eval: 2.0.2
       flat: 5.0.2
       js-yaml: 4.1.0
-      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
       langsmith: 0.1.40(@langchain/core@0.2.20)(langchain@0.2.12)
       pdf-parse: 1.1.1
       uuid: 10.0.0
@@ -2144,6 +2154,31 @@ packages:
     resolution: {integrity: sha512-4Z8dn6Upk0qk4P74xBhZ6Hd/w0mPEzOOLxy4xiPXOXqjF7jZS0VAKk7/x/H6FyY2zCkYJqePf1G5KmkmNJ4RBA==}
     dev: false
 
+  /@radix-ui/react-alert-dialog@1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-wmCoJwj7byuVuiLKqDLlX7ClSUU0vd9sdCeM+2Ls+uf13+cpSJoMgwysHq1SGVVkJj5Xn0XWi1NoRCdkMpr6Mw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-context': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-dialog': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
   /@radix-ui/react-arrow@1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-FmlW1rCg7hBpEBwFbjHwCW6AmWLQM6g/v0Sn8XbP9NvmSZ2San1FpQeyPtufzOMSIx7Y4dzjlHoifhp+7NkZhw==}
     peerDependencies:
@@ -2211,6 +2246,39 @@ packages:
     dependencies:
       '@types/react': 18.3.3
       react: 18.3.1
+    dev: false
+
+  /@radix-ui/react-dialog@1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-zysS+iU4YP3STKNS6USvFVqI4qqx8EpiwmT5TuCApVEBca+eRCbONi4EgzfNSuVnOXvC5UPHHMjs8RXO6DH9Bg==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@radix-ui/primitive': 1.1.0
+      '@radix-ui/react-compose-refs': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-context': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-dismissable-layer': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-focus-guards': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-focus-scope': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-id': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-portal': 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-presence': 1.1.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-primitive': 2.0.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
+      '@radix-ui/react-slot': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@radix-ui/react-use-controllable-state': 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
+      aria-hidden: 1.2.4
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-remove-scroll: 2.5.7(@types/react@18.3.3)(react@18.3.1)
     dev: false
 
   /@radix-ui/react-direction@1.1.0(@types/react@18.3.3)(react@18.3.1):
@@ -3246,6 +3314,19 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
+  /@upstash/redis@1.24.3:
+    resolution: {integrity: sha512-gw6d4IA1biB4eye5ESaXc0zOlVQI94aptsBvVcTghYWu1kRmOrJFoMFEDCa8p5uzluyYAOFCuY2GWLR6O4ZoIw==}
+    dependencies:
+      crypto-js: 4.2.0
+    dev: false
+
+  /@vercel/kv@0.2.4:
+    resolution: {integrity: sha512-wbIOOXhg6MzmNMzKFSWbbLAS65hCZcJN33z1coENzI1M0fOX55yE9v9LwVGqkzdItp3eZsv6pYvwcmGtllyLTw==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@upstash/redis': 1.24.3
+    dev: false
+
   /@vue/compiler-core@3.4.35:
     resolution: {integrity: sha512-gKp0zGoLnMYtw4uS/SJRRO7rsVggLjvot3mcctlMXunYNsX+aRJDqqw/lV5/gHK91nvaAAlWFgdVl020AW1Prg==}
     dependencies:
@@ -3663,7 +3744,6 @@ packages:
       function-bind: 1.1.2
       get-intrinsic: 1.2.4
       set-function-length: 1.2.2
-    dev: true
 
   /callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
@@ -3915,7 +3995,6 @@ packages:
       es-define-property: 1.0.0
       es-errors: 1.3.0
       gopd: 1.0.1
-    dev: true
 
   /define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
@@ -3975,7 +4054,7 @@ packages:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.3
     dev: false
 
   /dotenv@16.4.5:
@@ -4173,12 +4252,10 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       get-intrinsic: 1.2.4
-    dev: true
 
   /es-errors@1.3.0:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /es-get-iterator@1.1.3:
     resolution: {integrity: sha512-sPZmqHBe6JIiTfN5q2pEi//TwxmAFHwj/XEuYjTuse78i8KxaqMTTzxPoFKuzRpDpTJ+0NAbpfenkmH2rePtuw==}
@@ -4791,7 +4868,6 @@ packages:
       has-proto: 1.0.3
       has-symbols: 1.0.3
       hasown: 2.0.2
-    dev: true
 
   /get-nonce@1.0.1:
     resolution: {integrity: sha512-FJhYRoDaiatfEkUK8HKlicmu/3SGFD51q3itKDGoSTysQJBnfOcxU5GxnhE1E6soB76MbT0MBtnKJuXyAx+96Q==}
@@ -4903,7 +4979,6 @@ packages:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
       get-intrinsic: 1.2.4
-    dev: true
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
@@ -4925,17 +5000,14 @@ packages:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
     dependencies:
       es-define-property: 1.0.0
-    dev: true
 
   /has-proto@1.0.3:
     resolution: {integrity: sha512-SJ1amZAJUiZS+PhsVLf5tGydlaVB8EdFpaSO4gmiUKUOxk8qzn5AIy4ZeJUmh22znIdk/uMAUT2pl3FxzVUH+Q==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /has-symbols@1.0.3:
     resolution: {integrity: sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /has-tostringtag@1.0.2:
     resolution: {integrity: sha512-NqADB8VjPFLM2V0VvHUewwwsw0ZWBaIdgo+ieHtK3hasLz4qeCRjYcqfB6AQrBggRKppKF8L52/VqdVsO47Dlw==}
@@ -5318,7 +5390,7 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /langchain@0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1):
+  /langchain@0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1):
     resolution: {integrity: sha512-ZHtJrHUpridZ7IQu7N/wAQ6iMAAO7VLzkupHqKP79S6p+alrPbn1BjRnh+PeGm92YiY5DafTCuvchmujxx7bCQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -5502,11 +5574,12 @@ packages:
         optional: true
     dependencies:
       '@aws-sdk/client-s3': 3.623.0
-      '@langchain/community': 0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+      '@langchain/community': 0.2.23(@aws-sdk/client-s3@3.623.0)(@neondatabase/serverless@0.9.4)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
       '@langchain/core': 0.2.20(langchain@0.2.12)
       '@langchain/openai': 0.2.5(langchain@0.2.12)
       '@langchain/textsplitters': 0.0.3(langchain@0.2.12)
       '@pinecone-database/pinecone': 2.2.2
+      '@vercel/kv': 0.2.4
       axios: 1.7.3
       binary-extensions: 2.3.0
       js-tiktoken: 1.0.12
@@ -5548,7 +5621,7 @@ packages:
       '@langchain/core': 0.2.20(langchain@0.2.12)
       '@types/uuid': 9.0.8
       commander: 10.0.1
-      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
       p-queue: 6.6.2
       p-retry: 4.6.2
       semver: 7.6.3
@@ -5572,7 +5645,7 @@ packages:
       '@langchain/core': 0.2.20(langchain@0.2.12)(openai@4.54.0)
       '@types/uuid': 9.0.8
       commander: 10.0.1
-      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(axios@1.7.3)(pdf-parse@1.1.1)
+      langchain: 0.2.12(@aws-sdk/client-s3@3.623.0)(@langchain/community@0.2.23)(@pinecone-database/pinecone@2.2.2)(@vercel/kv@0.2.4)(axios@1.7.3)(pdf-parse@1.1.1)
       openai: 4.54.0
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -5634,7 +5707,7 @@ packages:
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.3
     dev: false
 
   /lru-cache@10.4.3:
@@ -5842,7 +5915,7 @@ packages:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.4.1
+      tslib: 2.6.3
     dev: false
 
   /node-domexception@1.0.0:
@@ -5887,7 +5960,6 @@ packages:
   /object-inspect@1.13.2:
     resolution: {integrity: sha512-IRZSRuzJiynemAXPYtPe5BoI/RESNYR7TYm50MC5Mqbd3Jmw5y790sErYw3V6SryFJD64b74qQQs9wn5Bg/k3g==}
     engines: {node: '>= 0.4'}
-    dev: true
 
   /object-is@1.1.6:
     resolution: {integrity: sha512-F8cZ+KfGlSGi09lJT7/Nd6KJZ9ygtvYC0/UYYLI9nmQKLMnydpB9yvbv9K1uSkEu7FU9vYPmVwLg328tX+ot3Q==}
@@ -6264,6 +6336,13 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /qs@6.13.0:
+    resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.6
+    dev: false
+
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -6509,7 +6588,6 @@ packages:
       get-intrinsic: 1.2.4
       gopd: 1.0.1
       has-property-descriptors: 1.0.2
-    dev: true
 
   /set-function-name@2.0.2:
     resolution: {integrity: sha512-7PGFlmtwsEADb0WYyvCMa1t+yke6daIG4Wirafur5kcf+MhUnPms1UeR0CKQdTZD81yESwMHbtn+TR+dMviakQ==}
@@ -6539,7 +6617,6 @@ packages:
       es-errors: 1.3.0
       get-intrinsic: 1.2.4
       object-inspect: 1.13.2
-    dev: true
 
   /signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
@@ -6554,7 +6631,7 @@ packages:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.6.3
     dev: false
 
   /snakecase-keys@5.4.4:
@@ -6703,6 +6780,14 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
+
+  /stripe@16.8.0:
+    resolution: {integrity: sha512-6rOIcGOkxcc29jvhEyOYmpPFilekOBV+7vpemAoIAfbtCRW1yxzdDGM0/0vyekHglLL+wqGpP5ldrhO3dJ2JEQ==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 20.14.14
+      qs: 6.13.0
+    dev: false
 
   /strnum@1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
