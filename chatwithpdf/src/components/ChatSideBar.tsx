@@ -22,9 +22,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
-
+} from "@/components/ui/alert-dialog";
 
 type Props = {
   chats: DrizzleChat[];
@@ -36,32 +34,30 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [successMessage, setSuccessMessage] = React.useState(null);
-  const [selectedChatId, setSelectedChatId] = React.useState(null);
-  
 
   const handleDeleteChat = async (chatId: number) => {
     setIsLoading(true); // Set loading state to true when delete starts
-    setError(null);   // Clear previous errors
+    setError(null); // Clear previous errors
     setSuccessMessage(null); // Clear previous success messages
 
     try {
-      const response = await fetch('/api/delete-chat', {
-        method: 'DELETE',
+      const response = await fetch("/api/delete-chat", {
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ chatId }),
       });
 
       if (response.ok) {
         // Handle success - remove chat from UI or refresh
-        toast.success('Chat deleted successfully');
+        toast.success("Chat deleted successfully");
         router.reload(); // Reload the page or update state to remove chat from UI
       } else {
-        console.error('Failed to delete chat');
+        console.error("Failed to delete chat");
       }
     } catch (error) {
-      toast.error('Failed to delete chat');
+      toast.error("Failed to delete chat");
     } finally {
       setIsLoading(false); // Set loading state to false when delete finishes
     }
@@ -80,44 +76,45 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
         {chats.map((chat) => (
           <div
             key={chat.id}
-            className={cn("rounded-lg p-3 text-slate-300 flex items-center justify-between", {
-              "bg-blue-700 text-white": chat.id === chatId,
-              "hover:text-white": chat.id !== chatId,
-            })}
+            className={cn(
+              "rounded-lg p-3 text-slate-300 flex items-center justify-between",
+              {
+                "bg-blue-700 text-white": chat.id === chatId,
+                "hover:text-white": chat.id !== chatId,
+              }
+            )}
           >
             <Link href={`/chat/${chat.id}`} className="w-full">
               <p className="overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis">
-              {chat.pdfName.length > 10 ? `${chat.pdfName.substring(0, 20)}...` : chat.pdfName}
+                {chat.pdfName.length > 10
+                  ? `${chat.pdfName.substring(0, 20)}...`
+                  : chat.pdfName}
               </p>
             </Link>
             <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant={"destructive"}>
-            <Trash
-              className="w-4 h-4 text-white hover:text-red-900 cursor-pointer"
-            />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will remove the
-                chat and any data associated with it.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => {
-                  handleDeleteChat(chat.id);
-                }}
-              >
-                Yes, delete
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+              <AlertDialogTrigger asChild>
+              <Trash className="w-4 h-4 hover:text-red-500 cursor-pointer bg-transparent p-0 border-none" />
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will remove the chat and
+                    any data associated with it.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => {
+                      handleDeleteChat(chat.id);
+                    }}
+                  >
+                    Yes, delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         ))}
       </div>
@@ -128,7 +125,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
           <Link href="/">Source</Link>
         </div>
         <div className="mt-2 bg-purple-600">
-        <SubscriptionButton isPro={isPro} />
+          <SubscriptionButton isPro={isPro} />
         </div>
       </div>
     </div>
