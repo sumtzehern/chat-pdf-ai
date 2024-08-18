@@ -46,11 +46,18 @@ export default async function Home() {
             </div>
             <div className="flex mt-2">
               {
-                isAuth && <Button className="text-sm font-medium dark:bg-slate-800 dark:text-slate-300">
-                  <Link href={`/chat/${firstChat?.id}`}>Go to Chats 👉🏼</Link>
-                  </Button>
+                isAuth && (
+                  <>
+                    <Button className="text-sm font-medium dark:bg-slate-800 dark:text-slate-300">
+                      <Link href={`/chat/${firstChat?.id}`}>Go to Chats 👉🏼</Link>
+                    </Button>
+                    <div className="ml-3">
+                      <SubscriptionButton isPro={isPro} />
+                    </div>
+                  </>
+                )
               }
-              <div className="ml-3"><SubscriptionButton isPro={isPro}/></div>
+              
               </div>
 
               <p className="max-w-xl mt-1 text-lg text-slate-800">
