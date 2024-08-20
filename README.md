@@ -13,6 +13,10 @@ https://file-chat-ai.vercel.app/
 - **Subscriptions**: Users can unlock additional features with a subscription plan.
 - **File Storage**: Secure file handling via AWS S3.
 - **Stripe Integration**: Payment and subscription management powered by Stripe.
+
+## System Diagram
+![image](https://github.com/user-attachments/assets/f17112f3-e5fe-441b-9b6b-6a616bdae98c)
+
   
 ## Tech Stack
 
