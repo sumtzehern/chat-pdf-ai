@@ -1,6 +1,9 @@
 # Chat with PDF AI
 
 Welcome to the **Chat with PDF AI** repository, a powerful tool that allows users to interact with PDF documents using AI, providing insights and answers to your queries based on the document's content.
+https://file-chat-ai.vercel.app/
+
+[[Demo Video](https://www.loom.com/share/3564a3eb97fd403baf1e3ae76f544893?sid=8f30dc17-a154-46fd-8991-66bde1cab7fe)]
 
 ## Features
 
